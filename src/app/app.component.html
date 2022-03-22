@@ -1,0 +1,64 @@
+<form [formGroup]="weatherForm">
+  <div class="d-flex">
+    <input
+      type="email"
+      class="form-control"
+      formControlName="city"
+      placeholder="Search City"
+    />
+
+    <select (change)="selectMode()" formControlName="mode" class="form-control">
+      <option value="" disabled selected hidden>Select Mode</option>
+      <option value="hourly">Hourly</option>
+      <option value="daily">Daily</option>
+    </select>
+  </div>
+</form>
+
+<table
+  class="table"
+  *ngIf="dailyData.length > 0 && this.weatherForm.value.mode === 'daily'"
+>
+  <thead>
+    <tr>
+      <th scope="col">City Name</th>
+      <th scope="col" *ngFor="let daily of dailyData">
+        {{ daily.dt * 1000 | date: "dd/MM/YYYY" }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ this.weatherForm.value.city }}</td>
+      <td *ngFor="let daily of dailyData">{{ daily.temp.day }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table
+  class="table table-bordered"
+  *ngIf="hourlyData.length > 0 && this.weatherForm.value.mode === 'hourly'"
+>
+  <thead>
+    <tr>
+      <th scope="col">City Name</th>
+      <th scope="col" colspan="3" *ngFor="let hoursGroup of hourlyGroupedData">
+        {{ hoursGroup[0].dt * 1000 | date: "HH" }} -
+        {{ hoursGroup[2].dt * 1000 | date: "HH" }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">{{ this.weatherForm.value.city }}</td>
+      <th *ngFor="let hour of hourlyData">
+        {{ hour.dt * 1000 | date: "HH" }}
+      </th>
+    </tr>
+    <tr>
+      <td *ngFor="let hour of hourlyData">
+        {{ hour.temp }}
+      </td>
+    </tr>
+  </tbody>
+</table>
