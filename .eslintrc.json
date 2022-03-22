@@ -45,7 +45,8 @@
 							"parameters": "first"
 						}
 					}
-				]
+				],
+				"@typescript-eslint/no-explicit-any": "off"
 			}
 		}
 	]

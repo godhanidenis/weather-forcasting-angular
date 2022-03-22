@@ -1,0 +1,23 @@
+form {
+	width: 50%;
+	margin: 20px auto;
+}
+select {
+	width: 150px;
+	margin-left: 10px;
+}
+table {
+	th,
+	td {
+		text-align: center;
+	}
+}
+
+input,
+select {
+	&:focus {
+		outline: none !important;
+		border-color: #ced4da;
+		box-shadow: none;
+	}
+}
